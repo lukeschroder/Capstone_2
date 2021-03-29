@@ -2,6 +2,8 @@
 .ipynb_checkpoints
 notebooks/.ipynb_checkpoints
 data/.ipynb_checkpoints
+data/eia860/
+data/eia861/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
