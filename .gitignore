@@ -4,6 +4,15 @@ notebooks/.ipynb_checkpoints
 data/.ipynb_checkpoints
 data/eia860/
 data/eia861/
+data/aggregate_860_dirty.csv
+data/aggregate_861_dirty.csv
+data/eda.csv
+data/X_test.csv
+data/X_train.csv
+data/y_test.csv
+data/y_train.csv
+
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
