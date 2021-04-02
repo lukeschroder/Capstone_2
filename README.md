@@ -1,6 +1,6 @@
 # Capstone 2
 
-## Predicting US Energy Utility Revenues via Generation Analysis
+## Predicting US Energy Utility Revenues via Generation Portfolio Analysis
 *Capstone II Project for Galvanize Data Science Immersive, Week 8*
  
 *A Project by Luke Schroder*
@@ -11,22 +11,22 @@
 - Creating business recommendations from model analysis
 ## Table of Contents
 - [Introduction](#Introduction)   
-   - [Background and Overview](#background-&-overview)
-   - [The Question](#the-question)
-   - [Raw Data](#raw-data)
-   - [Data Cleaning](#data-cleaning)
+   - [Background and overview](#background-&-overview)
+   - [The question](#the-question)
+   - [Raw data](#raw-data)
+   - [Data cleaning](#data-cleaning)
 - [Exploratory Data Analysis](#Data-Cleaning-&-Exploratory-Data-Analysis)
-   - [US energy landscape](#How-has-the-US-energy-landscape-grown)
+   - [US energy landscape](#How-has-the-US-energy-landscape-changed)
    - [Top generation methods](#What-are-the-top-generation-methods)
-   - [Addressing Scaling](#Addressing-scaling)
+   - [Addressing scaling](#Addressing-scaling)
 - [Model Selection and Analysis](#Model-Selection-&-Analysis)
-   - [Gradient Boosted Regression](#Gradient-Boosted-Regression)
-   - [Important Features](#Important-features)
+   - [Gradient boosted regression](#Gradient-Boosted-Regression)
+   - [Important features](#Important-features)
 - [Generation Portfolio Recommendations](#Generation-Portfolio-Recommendations)
   - [How to increase revenues](#How-to-increase-revenues)
 - [Conclusion](#conclusion)
    - [Summary](#summary)
-   - [Next Steps](#next-steps)
+   - [Next steps](#next-steps)
  
 # Introduction
 ## Background & overview:
@@ -38,7 +38,7 @@ Energy generation and sales in the United States is a complex and ever-changing 
 ## Raw data:
 The data for this project is an aggregation of results from two yearly surveys of energy utilities conducted by The U.S. Energy Information Administration.
 
-**EIA 860:** This survey provides generator level data from multiple plants across 525 different utilities in the United States including capacity and generation technologies from 1990-2019 *(Naming and reporting conventions vary year to year).*
+**EIA 860:** This survey provides generator level data from multiple plants across different utilities in the United States including capacity and generation technologies from 1990-2019 *(Naming and reporting conventions vary year to year).*
 
 **EIA 861:** This survey contains Utility level data segmented into operational and sales data files by year from 1990-2019 *(Naming and reporting conventions vary year to year).*
 
@@ -90,10 +90,10 @@ As mentioned above I took the EIA 860 generator level data and created new featu
 
 The Final dataset consisted of data for each utility by year with features outlining peak capacity (total, winter and summer), sales (in MWh), revenues, ownership type, percentage of generation from each type and MW generated at peak for each type.
 
-**POSSIBLY PUT CLEANED ROW HERE**
+**---------------------------------------------POSSIBLY PUT CLEANED ROW HERE---------------------------------------------------**
 
 # Additional Data Cleaning & Exploratory Data Analysis
-## How has the US energy landscape grown?
+## How has the US energy landscape changed?
 
 
 ## What are the top generation methods?
@@ -113,4 +113,4 @@ The Final dataset consisted of data for each utility by year with features outli
 # Conclusion
 ## Summary:
 
-## Next Steps:
+## Next steps:
