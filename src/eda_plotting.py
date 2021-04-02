@@ -49,7 +49,7 @@ if __name__ == '__main__':
     plt.setp(legend.get_texts(), color='black')
     ax.set_title('Generation Type by Year',color='black',fontsize=24)
     plt.xticks(fontsize=20)
-    plt.xlabel('Total Megawatt Hours',fontsize=24)
+    plt.xlabel('Total Megawatts',fontsize=24)
     plt.yticks(fontsize=20)
     plt.savefig('../images/gen_by_year.png',dpi=60)
 
@@ -86,7 +86,7 @@ if __name__ == '__main__':
     explode = (0,.1,0,0)
 
     fig, ax = plt.subplots(3,1,figsize=(12,30))
-    
+
     ax.flatten()[0].pie(sizes_1, labels=labels,explode=explode,autopct='%1.1f%%',textprops={'fontsize': 18})
     ax.flatten()[1].pie(sizes_2, labels=labels,explode=explode,autopct='%1.1f%%',textprops={'fontsize': 18})
     ax.flatten()[2].pie(sizes_3, labels=labels,explode=explode,autopct='%1.1f%%',textprops={'fontsize': 18})

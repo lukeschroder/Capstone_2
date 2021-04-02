@@ -24,9 +24,7 @@
    - [Important features](#Important-features)
 - [Generation Portfolio Recommendations](#Generation-Portfolio-Recommendations)
   - [How to increase revenues](#How-to-increase-revenues)
-- [Conclusion](#conclusion)
-   - [Summary](#summary)
-   - [Next steps](#next-steps)
+- [Next steps](#next-steps)
  
 # Introduction
 ## Background & overview:
@@ -57,7 +55,7 @@ The flow of this process is as follows:
 | 5            | Join Aggregate 860 and 861 Datasets                 |
 
 ### Feature and data standardization:
-The bulk of data cleansing took the form of standardizing the data across all years of survey results. A few examples of inconsistancies in the data are as follows:
+The bulk of data cleansing took the form of standardizing the data across all years of survey results. A few examples of inconsistencies in the data are as follows:
 
 - **Column names:** abbreviations/acronym changes
 - **File types:** storage of the data in different file formats
@@ -71,7 +69,7 @@ As mentioned above I took the EIA 860 generator level data and created new featu
 |:---------------:|:--------:|
 |       Coal      |     1    |
 |   Natural Gas   |     2    |
-|    Petrolium    |     3    |
+|    Oil    |     3    |
 | Hydroelectric   | 4        |
 | Geothermal      | 5        |
 | Wind            | 6        |
@@ -83,34 +81,76 @@ As mentioned above I took the EIA 860 generator level data and created new featu
 |:--------------:|:--------:|
 |    Municipal   |     1    |
 |   Cooperative  |     2    |
-|     Private    |     3    |
-|      Other     |     0    |
+|     Retail Power Marketer    |     3    |
+|      Other/Private     |     0    |
 
 ### Final product:
 
 The Final dataset consisted of data for each utility by year with features outlining peak capacity (total, winter and summer), sales (in MWh), revenues, ownership type, percentage of generation from each type and MW generated at peak for each type.
 
-**---------------------------------------------POSSIBLY PUT CLEANED ROW HERE---------------------------------------------------**
 
 # Additional Data Cleaning & Exploratory Data Analysis
-## How has the US energy landscape changed?
-
+## How has the US utility ownership landscape changed?
+![Pie](./images/ownershiptypes.png)
+As you can see the percentage of utility ownership has been shifting more toward private companies in recent years. This fact drives home the value of this project as private companies are more driven to produce profits.
 
 ## What are the top generation methods?
+![GenerationTypes](./images/gen_by_year.png)
+The graph above shows the amount generated for years 1990, 2006 and 2017 segmented by generation type.
 
- 
+**A few notes:**
+- Generation by coal, nuclear and oil have fallen in recent years
+- As wind and solar technologies have improved we are seeing more generation in those categories
+- Natural gas has steadily increased over time, likely do to the repurposing of coal/oil plants to natural gas
+
 ## Addressing scaling:
-
+One thing to address before moving into the following section on my regression model: I absolute and log scaled revenues to provide a more normal distribution. This **greatly increased** the predictive performance of my model.
 
 # Model Selection & Analysis
 ## Gradient boosted regression:
+*Check [here](./src/load_split) for model selection scripts**
+
+To predict revenues per megawatthour sold I chose to use a cross-validated randomsearch followed by a cross-validated gridsearch method in sklearn. The randomsearch tested a large range of model hyperparameters and the gridsearch focused in on the smaller range generated. From there I chose the model with the lowest training RMSE score.
+
+After testing several models I landed on **sklearn's GradientBoostedRegressor model** with the following hyperparameters:
+
+|     Parameter    | Value |
+|:----------------:|:-----:|
+|   Learning Rate  |  0.2  |
+|     Max Depth    |   9   |
+| Min Samples Leaf |   15  |
+|   Max Features   |  auto |
+| # Estimators     | 150   |
+| Max Leaf Nodes   | 8     |
+
+This model produced very accurate predictions for revenues per MWh sold with **an RMSE score of 1.8707 on unseen data.**
 
 ## Important features:
+Earlier I mentioned the increasing amount of electricity generation by natural gas, solar and wind. These generation technologies did not have a large impact on the prediction one way or the other. The generation type with the highest impact on predicted revenue was nuclear.
+
+![Partial_Dependence](./images/partial_dependence_nuke.png)
+
+The Partial dependence plot above shows that the greater the generation from nuclear power the average revenue predicted will increase. One thing to note is the spike at around 950 megawatts, this is likely due to the data layout and will smooth given more data. Nuclear power generation seems to have the greatest impact on increasing revenue per sale but it is not the only one, some other **revenue boosting features include:**
+
+- Municipal ownership
+- Having at least one solar generator
+- Having more than one type of generation
+
+**Revenue per sale reducing features include:**
+
+- Hydroelectric generation
+- Having a high percentage of natural gas based generation
+- Having a high percentage of oil based generation
 
 # Generation Portfolio Recommendations
 ## How to increase revenues:
 
-# Conclusion
-## Summary:
+Going off the analysis provided in the section above my recommendations for energy utilities to increase revenue per sale are as follows:
+- **Diversify generation portfolios:** high percentages of generation, specifically natural gas and oil reduce average revenue per MWh sold
+- **Continue nuclear operations:** with many nuclear power plants scheduled to retire in the coming years it is paramount to keep these operational as they are some of the best factors in increasing revenue per sale. Investment in new nuclear generators could also be an option but initial costs would likely prevent returns for many years
 
-## Next steps:
+# Next steps:
+- Enhance pipeline scripts to pull more features
+- Refactor codebase for easy analysis on new data
+- Automate model selection for next years data
+- Host project on web servers
